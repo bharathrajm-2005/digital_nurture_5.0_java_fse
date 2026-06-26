@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  WHY THIS CONFIGURATION FILE EXISTS:
+  This is the Spring Application Context XML configuration file. It is the metadata that tells
+  Spring's Inversion of Control (IoC) container how to instantiate, configure, and wire the beans.
+  
+  XML CONFIGURATION VS. ANNOTATIONS:
+  - XML configuration (like this file) was the original way to configure Spring. It keeps configuration
+    external and independent of the Java source code. This is very clean but can grow verbose as
+    the project expands.
+  - Annotation-based configuration (using @Component, @Service, @Repository, @Autowired) is the modern standard.
+    It's faster to write and place directly above classes/fields, but couples the Java code with Spring annotations.
+    Here we are using XML to explicitly understand the "under the hood" bean definition and wiring.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+      BEAN DEFINITION: bookRepository
+      - 'id': The name by which we can retrieve this bean from the Spring context.
+      - 'class': The fully qualified name of the class that Spring should instantiate.
+      
+      When Spring starts, it reads this line and executes something similar to:
+         BookRepository bookRepository = new BookRepository();
+      and stores it in its internal bean registry.
+    -->
+    <bean id="bookRepository" class="com.library.repository.BookRepository" />
+
+    <!--
+      BEAN DEFINITION: bookService
+      Here, we define the BookService bean and configure its dependencies.
+      
+      DEPENDENCY INJECTION (DI) WIRING:
+      - '<property name="bookRepository" ref="bookRepository" />'
+        - 'name': Corresponds to the field/property name in BookService. Under the hood, Spring looks
+                  for a setter method named 'setBookRepository'.
+        - 'ref': Points to the bean 'id' we want to inject. Here, it refers to the 'bookRepository' bean defined above.
+        
+      When Spring constructs 'bookService', it does the equivalent of:
+         BookService bookService = new BookService();
+         bookService.setBookRepository(bookRepository); // Injects the already created bookRepository bean!
+    -->
+    <bean id="bookService" class="com.library.service.BookService">
+        <property name="bookRepository" ref="bookRepository" />
+    </bean>
+
+</beans>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  WHY MAVEN & pom.xml?
+  Maven is a build automation and dependency management tool for Java projects.
+  The pom.xml (Project Object Model) file is the XML file that contains information about the project
+  and configuration details used by Maven to build the project. It defines the project's dependencies,
+  plugins, properties, and overall configuration.
+  
+  Using Maven avoids downloading JAR files manually and managing classpath manually, which is error-prone.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!--
+      WHY SPRING BOOT PARENT?
+      The <parent> element configures our project to inherit settings, default compiler levels, and 
+      dependency versions from 'spring-boot-starter-parent'. This reduces boilerplate configuration 
+      in our pom.xml, ensuring compatible versions of Spring and other libraries are used.
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    
+    <!-- Project Coordinates uniquely identifying this library project in a Maven repository -->
+    <groupId>com.bharathrajfirst</groupId>
+    <artifactId>LibraryManagement</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>LibraryManagement</name>
+    <description>LibraryManagement</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <properties>
+        <!-- Specifying Java 17 for compilation and source compatibility -->
+        <java.version>17</java.version>
+    </properties>
+    <dependencies>
+        <!--
+          WHY SPRING-BOOT-STARTER?
+          The 'spring-boot-starter' includes the core Spring Framework dependencies (such as spring-core, 
+          spring-beans, spring-context, spring-aop, logging, etc.). 
+          Even though we are building a basic Spring application with an XML configuration, these starters
+          supply the required Spring Core context classes (like ClassPathXmlApplicationContext) automatically
+          without needing to add separate Maven entries for spring-core, spring-context, etc.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Testing framework starter containing JUnit, Mockito, and Spring Test utilities -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Maven plugin to package the application as an executable jar/war and run it easily -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
