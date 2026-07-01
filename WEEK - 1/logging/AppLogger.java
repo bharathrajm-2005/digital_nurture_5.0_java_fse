@@ -1,21 +1,35 @@
-package logging;
 
-// A simple example simulating a logging framework
+
+class Logger {
+
+    public void info(String message) {
+        System.out.println("[INFO] " + message);
+    }
+
+    public void error(String message) {
+        System.out.println("[ERROR] " + message);
+    }
+
+    public void debug(String message) {
+        System.out.println("[DEBUG] " + message);
+    }
+}
+
 public class AppLogger {
 
-    public void processData() {
-        // Log info message
-        System.out.println("[INFO] Starting data processing...");
+    public static void main(String[] args) {
+
+        Logger logger = new Logger();
+
+        logger.info("Application Started");
 
         try {
-            int result = 10 / 0; // Simulated error
-            System.out.println(result);
+            int result = 10 / 0;
+            logger.debug("Result = " + result);
         } catch (Exception e) {
-            // Log error message with exception details
-            System.out.println("[ERROR] Failed to process data: " + e.getMessage());
+            logger.error("Exception Occurred: " + e.getMessage());
         }
 
-        // Log debug message
-        System.out.println("[DEBUG] Finished data processing method.");
+        logger.info("Application Ended");
     }
 }
